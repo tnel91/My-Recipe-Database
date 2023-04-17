@@ -9,6 +9,7 @@ import RecipeForm from './pages/RecipeForm'
 import RecipeDetails from './pages/RecipeDetails'
 import Pantry from './pages/Pantry'
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
           <Route path="/pantry" element={<Pantry />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
     </div>

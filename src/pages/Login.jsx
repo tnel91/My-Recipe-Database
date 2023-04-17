@@ -10,8 +10,9 @@ const Login = () => {
     setFormState({ ...formState, [event.target.name]: event.target.value })
   }
 
-  const handleLogin = () => {
-    console.log('login')
+  const handleLogin = (event) => {
+    event.preventDefault()
+    console.log(formState)
   }
 
   return (
@@ -28,7 +29,7 @@ const Login = () => {
             onChange={handleChange}
             required
           ></input>
-          <label htmlFor="email">email address</label>
+          <label htmlFor="loginEmail">email address</label>
         </div>
         <div>
           <input
@@ -40,7 +41,7 @@ const Login = () => {
             onChange={handleChange}
             required
           ></input>
-          <label htmlFor="password">password</label>
+          <label htmlFor="loginPassword">password</label>
         </div>
         <br />
         <br />
