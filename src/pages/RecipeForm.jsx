@@ -25,7 +25,7 @@ const RecipeForm = (props) => {
   const [formState, setFormState] = useState(initialState)
 
   const handleChange = (event) => {
-    setFormState({ ...formState, [event.target.id]: event.target.value })
+    setFormState({ ...formState, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = async (event) => {
@@ -95,6 +95,7 @@ const RecipeForm = (props) => {
         <label htmlFor="name">Recipe Name:</label>
         <input
           id="name"
+          name="name"
           onChange={handleChange}
           value={formState.name}
           placeholder="required"
@@ -103,6 +104,7 @@ const RecipeForm = (props) => {
         <label htmlFor="description">Description: </label>
         <textarea
           id="description"
+          name="description"
           onChange={handleChange}
           value={formState.description}
         ></textarea>
@@ -111,12 +113,14 @@ const RecipeForm = (props) => {
         <label htmlFor="totalTime">Total Time:</label>
         <input
           id="totalTime"
+          name="totalTime"
           onChange={handleChange}
           value={formState.totalTime}
         />
         <label htmlFor="ingredients">Ingredients:</label>
         <textarea
           id="ingredients"
+          name="ingredients"
           onChange={handleChange}
           value={formState.ingredients}
           placeholder="required"
@@ -125,17 +129,33 @@ const RecipeForm = (props) => {
         <label htmlFor="instructions">Instructions:</label>
         <textarea
           id="instructions"
+          name="instructions"
           onChange={handleChange}
           value={formState.instructions}
           placeholder="required"
           required
         />
         <label htmlFor="image">Image:</label>
-        <input id="image" onChange={handleChange} value={formState.image} />
+        <input
+          id="image"
+          name="image"
+          onChange={handleChange}
+          value={formState.image}
+        />
         <label htmlFor="url">URL:</label>
-        <input id="url" onChange={handleChange} value={formState.url} />
+        <input
+          id="url"
+          name="url"
+          onChange={handleChange}
+          value={formState.url}
+        />
         <label htmlFor="notes">Notes:</label>
-        <textarea id="notes" onChange={handleChange} value={formState.notes} />
+        <textarea
+          id="notes"
+          name="notes"
+          onChange={handleChange}
+          value={formState.notes}
+        />
       </form>
       <div className="Response"></div>
     </div>

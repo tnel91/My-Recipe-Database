@@ -1,5 +1,6 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import { useState } from 'react'
 import Header from './components/Header'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -7,6 +8,7 @@ import RecipeList from './pages/RecipeList'
 import RecipeForm from './pages/RecipeForm'
 import RecipeDetails from './pages/RecipeDetails'
 import Pantry from './pages/Pantry'
+import Login from './pages/Login'
 
 const App = () => {
   return (
@@ -35,6 +37,7 @@ const App = () => {
           />
           <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
           <Route path="/pantry" element={<Pantry />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
     </div>

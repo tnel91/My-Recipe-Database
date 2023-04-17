@@ -21,6 +21,7 @@ const RecipeList = () => {
     await axios
       .get(`${Base_URL}/recipes`)
       .then((response) => {
+        console.log(response.data)
         setRecipes(response.data)
       })
       .catch((error) => {
