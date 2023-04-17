@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import axios from 'axios'
+
+const Base_URL =
+  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
 
 const Login = () => {
   const [formState, setFormState] = useState({
@@ -10,9 +14,18 @@ const Login = () => {
     setFormState({ ...formState, [event.target.name]: event.target.value })
   }
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     console.log(formState)
+    await axios
+      .post(`${Base_URL}/login`, formState)
+      .then((response) => {
+        console.log(response.data)
+        console.log('logged in')
+      })
+      .catch((error) => {
+        alert(error.response.data)
+      })
   }
 
   return (

@@ -1,6 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+const Base_URL =
+  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
 
 const Register = () => {
+  let navigate = useNavigate()
+
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -12,9 +19,23 @@ const Register = () => {
     setFormState({ ...formState, [event.target.name]: event.target.value })
   }
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault()
-    console.log(formState)
+    if (formState.password === formState.passwordMatch) {
+      console.log(formState)
+      await axios
+        .post(`${Base_URL}/register`, formState)
+        .then((response) => {
+          console.log('created user')
+          console.log(response.data)
+          navigate('/login')
+        })
+        .catch((error) => {
+          alert(error.response.data)
+        })
+    } else {
+      console.log('passwords do not match!')
+    }
   }
 
   return (
