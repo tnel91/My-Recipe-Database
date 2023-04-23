@@ -4,6 +4,8 @@ const Header = () => {
   return (
     <nav>
       <Link to="/">Home</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
       <Link id="push-left" to="/about">
         About
       </Link>
