@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { loginUser } from '../services/auth'
 
 const Base_URL =
   process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
@@ -16,16 +16,8 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log(formState)
-    await axios
-      .post(`${Base_URL}/login`, formState)
-      .then((response) => {
-        console.log(response.data)
-        console.log('logged in')
-      })
-      .catch((error) => {
-        alert(error.response.data)
-      })
+    const user = await loginUser(formState)
+    console.log(user)
   }
 
   return (

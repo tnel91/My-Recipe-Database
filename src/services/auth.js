@@ -6,8 +6,17 @@ const Base_URL =
 export const registerUser = async (formState) => {
   try {
     const response = await axios.post(`${Base_URL}/register`, formState)
-    console.log('created user')
     return response.data
+  } catch (error) {
+    throw error.response.data
+  }
+}
+
+export const loginUser = async (formState) => {
+  try {
+    const response = await axios.post(`${Base_URL}/login`, formState)
+    localStorage.setItem('token', response.data.token)
+    return response.data.user
   } catch (error) {
     throw error.response.data
   }
