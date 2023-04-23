@@ -1,9 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-const Base_URL =
-  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
+import { BASE_URL } from '../globals'
 
 const RecipeDetails = () => {
   const [selectedRecipe, setSelectedRecipe] = useState(null)
@@ -24,7 +22,7 @@ const RecipeDetails = () => {
 
   const setRecipe = async () => {
     const response = await axios
-      .get(`${Base_URL}/recipes/${recipeId}`)
+      .get(`${BASE_URL}/recipes/${recipeId}`)
       .then((res) => {
         return res.data
       })
@@ -49,7 +47,7 @@ const RecipeDetails = () => {
     let confirm = window.confirm('Delete recipe forever?')
     if (confirm === true) {
       await axios
-        .delete(`${Base_URL}/recipes/${recipeId}`)
+        .delete(`${BASE_URL}/recipes/${recipeId}`)
         .then(() => {
           navigate(`/recipes`)
         })

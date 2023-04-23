@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { loginUser } from '../services/auth'
 
-const Base_URL =
-  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
-
 const Login = () => {
   const [formState, setFormState] = useState({
     email: '',

@@ -1,12 +1,10 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../globals'
 
 import RecipeSearch from '../components/RecipeSearch'
 import RecipeCard from '../components/RecipeCard'
-
-let Base_URL =
-  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
 
 const RecipeList = () => {
   let navigate = useNavigate()
@@ -19,7 +17,7 @@ const RecipeList = () => {
 
   const getRecipes = async () => {
     await axios
-      .get(`${Base_URL}/recipes`)
+      .get(`${BASE_URL}/recipes`)
       .then((response) => {
         console.log(response.data)
         setRecipes(response.data)
@@ -37,7 +35,7 @@ const RecipeList = () => {
     event.preventDefault()
     if (searchQuery.searchType === 'Name') {
       await axios
-        .get(`${Base_URL}/recipe_search_by_name/${searchQuery.query}`)
+        .get(`${BASE_URL}/recipe_search_by_name/${searchQuery.query}`)
         .then((response) => {
           setRecipes(response.data)
           setSearchQuery({ ...searchQuery, query: '' })
@@ -48,7 +46,7 @@ const RecipeList = () => {
     }
     if (searchQuery.searchType === 'Ingredients') {
       await axios
-        .get(`${Base_URL}/recipe_search_by_ingr/${searchQuery.query}`)
+        .get(`${BASE_URL}/recipe_search_by_ingr/${searchQuery.query}`)
         .then((response) => {
           setRecipes(response.data)
           setSearchQuery({ ...searchQuery, query: '' })

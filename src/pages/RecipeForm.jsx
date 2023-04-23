@@ -1,10 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { BASE_URL } from '../globals'
 
 import axios from 'axios'
-
-const Base_URL =
-  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
 
 const RecipeForm = (props) => {
   let { recipeId } = useParams()
@@ -32,7 +30,7 @@ const RecipeForm = (props) => {
     event.preventDefault()
     if (props.updateForm) {
       await axios
-        .put(`${Base_URL}/recipes/${recipeId}`, formState)
+        .put(`${BASE_URL}/recipes/${recipeId}`, formState)
         .then(() => {
           navigate(`/recipes/${recipeId}`)
         })
@@ -41,7 +39,7 @@ const RecipeForm = (props) => {
         })
     } else {
       await axios
-        .post(`${Base_URL}/recipes`, formState)
+        .post(`${BASE_URL}/recipes`, formState)
         .then((response) => {
           navigate(`/recipes/${response.data._id}`)
         })
@@ -53,7 +51,7 @@ const RecipeForm = (props) => {
 
   const updateTemplate = async () => {
     const recipe = await axios
-      .get(`${Base_URL}/recipes/${recipeId}`)
+      .get(`${BASE_URL}/recipes/${recipeId}`)
       .then((response) => {
         return response.data
       })
