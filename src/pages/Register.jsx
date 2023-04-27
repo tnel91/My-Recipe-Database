@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const Base_URL =
-  process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001/api'
+import { registerUser } from '../services/auth'
 
 const Register = () => {
   let navigate = useNavigate()
@@ -22,17 +19,9 @@ const Register = () => {
   const handleRegister = async (event) => {
     event.preventDefault()
     if (formState.password === formState.passwordMatch) {
-      console.log(formState)
-      await axios
-        .post(`${Base_URL}/register`, formState)
-        .then((response) => {
-          console.log('created user')
-          console.log(response.data)
-          navigate('/login')
-        })
-        .catch((error) => {
-          alert(error.response.data)
-        })
+      let res = await registerUser(formState)
+      console.log(res)
+      navigate('/login')
     } else {
       console.log('passwords do not match!')
     }
@@ -71,6 +60,7 @@ const Register = () => {
             name="password"
             type="password"
             onChange={handleChange}
+            autoComplete="new-password"
             required
           ></input>
           <label htmlFor="registerPassword">password</label>
@@ -82,6 +72,7 @@ const Register = () => {
             name="passwordMatch"
             type="password"
             onChange={handleChange}
+            autoComplete="new-password"
             required
           ></input>
           <label htmlFor="registerPasswordMatch">confirm password</label>
