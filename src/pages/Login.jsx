@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     const user = await loginUser(formState)
-    navigate(`/profile/${user.id}`)
+    navigate(`/profile`)
   }
 
   return (
