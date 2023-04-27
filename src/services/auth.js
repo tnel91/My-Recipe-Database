@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { BASE_URL } from '../globals'
+import Client from './api'
 
 export const registerUser = async (formState) => {
   try {
-    const response = await axios.post(`${BASE_URL}/register`, formState)
+    const response = await Client.post(`${BASE_URL}/register`, formState)
     return response.data
   } catch (error) {
     throw error.response.data
@@ -12,7 +13,7 @@ export const registerUser = async (formState) => {
 
 export const loginUser = async (formState) => {
   try {
-    const response = await axios.post(`${BASE_URL}/login`, formState)
+    const response = await Client.post(`${BASE_URL}/login`, formState)
     localStorage.setItem('token', response.data.token)
     return response.data.user
   } catch (error) {
