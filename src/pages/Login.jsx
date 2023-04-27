@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { loginUser } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const navigate = useNavigate()
   const [formState, setFormState] = useState({
     email: '',
@@ -16,6 +16,7 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     const user = await loginUser(formState)
+    setUser(user)
     navigate(`/profile`)
   }
 

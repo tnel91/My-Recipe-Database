@@ -16,6 +16,11 @@ import Profile from './pages/Profile'
 const App = () => {
   const [user, setUser] = useState(null)
 
+  const handleLogout = () => {
+    setUser(null)
+    localStorage.clear()
+  }
+
   const checkToken = async () => {
     const user = await CheckSession()
     if (user) {
@@ -32,7 +37,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
+      <Header handleLogout={handleLogout} />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -56,7 +61,7 @@ const App = () => {
           />
           <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
           <Route path="/pantry" element={<Pantry />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>

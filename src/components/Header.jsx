@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({ handleLogout }) => {
   return (
     <nav>
       <Link to="/">Home</Link>
@@ -12,6 +12,7 @@ const Header = () => {
       </Link>
       <Link to="/recipes">Recipes</Link>
       <Link to="/pantry">Pantry</Link>
+      <button onClick={handleLogout}>Log Out</button>
     </nav>
   )
 }
