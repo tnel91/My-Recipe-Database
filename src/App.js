@@ -1,6 +1,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { CheckSession } from './services/auth'
 import Header from './components/Header'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -13,7 +14,21 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 
 const App = () => {
-  useEffect(() => {})
+  const [user, setUser] = useState(null)
+
+  const checkToken = async () => {
+    const user = await CheckSession()
+    if (user) {
+      setUser(user)
+    }
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      checkToken()
+    }
+  }, [])
 
   return (
     <div className="App">

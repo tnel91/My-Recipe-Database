@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { BASE_URL } from '../globals'
 import Client from './api'
 
@@ -18,5 +17,14 @@ export const loginUser = async (formState) => {
     return response.data.user
   } catch (error) {
     throw error.response.data
+  }
+}
+
+export const CheckSession = async () => {
+  try {
+    const res = await Client.get('/session')
+    return res.data
+  } catch (error) {
+    throw error
   }
 }
