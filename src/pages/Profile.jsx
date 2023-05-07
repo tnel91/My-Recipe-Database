@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
-// import { useParams } from 'react-router-dom'
 import Client from '../services/api'
+import AuthError from '../components/AuthError'
 
-const Profile = () => {
-  // const { id } = useParams()
+const Profile = ({ user }) => {
+  const [userProfile, setUserProfile] = useState({
+    email: ''
+  })
 
   const getUser = async () => {
     try {
       let res = await Client.get('/user')
       console.log(res.data)
+      setUserProfile({
+        email: res.data.email
+      })
     } catch (error) {
       throw error
     }
@@ -18,9 +23,17 @@ const Profile = () => {
     getUser()
   }, [])
 
-  return (
+  return user ? (
     <div>
-      <p>Profile</p>
+      <h2>Profile</h2>
+      <p>
+        <b>Email: </b>
+        {userProfile.email}
+      </p>
+    </div>
+  ) : (
+    <div>
+      <AuthError />
     </div>
   )
 }

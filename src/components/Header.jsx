@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 
 const Header = ({ handleLogout }) => {
+  const logOut = () => {
+    handleLogout()
+    console.log('logged out')
+  }
+
   return (
     <nav>
       <Link to="/">Home</Link>
@@ -12,7 +17,9 @@ const Header = ({ handleLogout }) => {
       </Link>
       <Link to="/recipes">Recipes</Link>
       <Link to="/pantry">Pantry</Link>
-      <button onClick={handleLogout}>Log Out</button>
+      <Link to="/" onClick={logOut}>
+        Log Out
+      </Link>
     </nav>
   )
 }

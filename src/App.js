@@ -42,7 +42,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/recipes" element={<RecipeList />} />
+          <Route path="/recipes" element={<RecipeList user={user} />} />
           <Route
             path="/recipes/form"
             element={
@@ -60,10 +60,10 @@ const App = () => {
             }
           />
           <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
-          <Route path="/pantry" element={<Pantry />} />
+          <Route path="/pantry" element={<Pantry user={user} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile user={user} />} />
         </Routes>
       </main>
     </div>
