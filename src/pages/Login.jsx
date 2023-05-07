@@ -17,7 +17,7 @@ const Login = ({ setUser }) => {
     event.preventDefault()
     const user = await loginUser(formState)
     setUser(user)
-    navigate(`/profile`)
+    navigate(`/recipes`)
   }
 
   const handleDemoLogin = async () => {
@@ -26,7 +26,7 @@ const Login = ({ setUser }) => {
       password: 'DemoPassword123'
     })
     setUser(user)
-    navigate(`/profile`)
+    navigate(`/recipes`)
   }
 
   return (
@@ -60,11 +60,11 @@ const Login = ({ setUser }) => {
         <br />
         <br />
         <button type="submit">Login</button>
-        <div>
-          <h4>Login with Demo Account</h4>
-          <button onClick={handleDemoLogin}>Demo</button>
-        </div>
       </form>
+      <div>
+        <h4>Login with Demo Account</h4>
+        <button onClick={handleDemoLogin}>Demo</button>
+      </div>
     </div>
   )
 }

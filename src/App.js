@@ -1,4 +1,5 @@
-import './App.css'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import { Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { CheckSession } from './services/auth'

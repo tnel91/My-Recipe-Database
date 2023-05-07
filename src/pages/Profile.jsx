@@ -12,7 +12,8 @@ const Profile = ({ user }) => {
       let res = await Client.get('/user')
       console.log(res.data)
       setUserProfile({
-        email: res.data.email
+        email: res.data.email,
+        username: res.data.username
       })
     } catch (error) {
       throw error
@@ -24,12 +25,20 @@ const Profile = ({ user }) => {
   }, [])
 
   return user ? (
-    <div>
-      <h2>Profile</h2>
-      <p>
-        <b>Email: </b>
-        {userProfile.email}
-      </p>
+    <div className="row">
+      <section className="col-6">
+        <h3>Account Settings</h3>
+        <div className="flex">
+          <button>Settings</button>
+          <button>Change Email</button>
+          <button>Change Password</button>
+        </div>
+      </section>
+      <section className="col-6">
+        <div id="changeSettings">Settings</div>
+        <div id="changeEmail">email</div>
+        <div id="changePassword">password</div>
+      </section>
     </div>
   ) : (
     <div>
