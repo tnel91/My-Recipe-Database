@@ -20,6 +20,15 @@ const Login = ({ setUser }) => {
     navigate(`/profile`)
   }
 
+  const handleDemoLogin = async () => {
+    const user = await loginUser({
+      email: 'demo@demo.com',
+      password: 'DemoPassword123'
+    })
+    setUser(user)
+    navigate(`/profile`)
+  }
+
   return (
     <div>
       <h3>Sign In</h3>
@@ -51,6 +60,10 @@ const Login = ({ setUser }) => {
         <br />
         <br />
         <button type="submit">Login</button>
+        <div>
+          <h4>Login with Demo Account</h4>
+          <button onClick={handleDemoLogin}>Demo</button>
+        </div>
       </form>
     </div>
   )
