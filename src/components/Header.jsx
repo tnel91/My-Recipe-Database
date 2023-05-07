@@ -9,8 +9,6 @@ const Header = ({ handleLogout }) => {
   return (
     <nav>
       <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
       <Link to="/profile">Profile</Link>
       <Link id="push-left" to="/about">
         About
