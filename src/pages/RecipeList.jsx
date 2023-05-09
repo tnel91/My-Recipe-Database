@@ -5,15 +5,19 @@ import { BASE_URL } from '../globals'
 import AuthError from '../components/AuthError'
 import RecipeSearch from '../components/RecipeSearch'
 import RecipeCard from '../components/RecipeCard'
+import RecipeDetails from './RecipeDetails'
 
 const RecipeList = ({ user }) => {
   let navigate = useNavigate()
 
   const [recipes, setRecipes] = useState([])
+
   const [searchQuery, setSearchQuery] = useState({
     searchType: 'Name',
     query: ''
   })
+
+  const [selectedRecipe, setSelectedRecipe] = useState('')
 
   const getRecipes = async () => {
     await axios
@@ -57,7 +61,7 @@ const RecipeList = ({ user }) => {
   }
 
   const showRecipeDetails = (id) => {
-    navigate(`/recipes/${id}`)
+    setSelectedRecipe(id)
   }
 
   const showCreateForm = () => {
@@ -92,15 +96,20 @@ const RecipeList = ({ user }) => {
   }, [])
 
   return user ? (
-    <div className="recipe-list">
+    <div className="row">
       <h2>Recipe Database</h2>
-      <RecipeSearch
-        handleChange={handleChange}
-        query={searchQuery.query}
-        handleSubmit={handleSubmit}
-        showCreateForm={showCreateForm}
-      />
-      {resultList}
+      <section className="col-4">
+        <RecipeSearch
+          handleChange={handleChange}
+          query={searchQuery.query}
+          handleSubmit={handleSubmit}
+          showCreateForm={showCreateForm}
+        />
+        {resultList}
+      </section>
+      <section className="col-8">
+        <RecipeDetails selectedRecipe={selectedRecipe} />
+      </section>
     </div>
   ) : (
     <div>

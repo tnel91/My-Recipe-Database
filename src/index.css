@@ -383,3 +383,12 @@ input {
   color: rgb(120, 0, 0);
   font-size: 1.5em;
 }
+
+.settings__toggle {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 3.5em;
+}
+
+.clicked {
+  background-color: rgba(0, 0, 0, 0.4);
+}

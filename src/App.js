@@ -8,7 +8,6 @@ import Home from './pages/Home'
 import About from './pages/About'
 import RecipeList from './pages/RecipeList'
 import RecipeForm from './pages/RecipeForm'
-import RecipeDetails from './pages/RecipeDetails'
 import Pantry from './pages/Pantry'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -60,7 +59,7 @@ const App = () => {
               />
             }
           />
-          <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+          {/* <Route path="/recipes/:recipeId" element={<RecipeDetails />} /> */}
           <Route path="/pantry" element={<Pantry user={user} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
