@@ -1,9 +1,9 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../globals'
 
-const RecipeDetails = () => {
+const RecipeDetails = ({ recipeId }) => {
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const [recipeDetails, setRecipeDetails] = useState({
     name: '',
@@ -17,7 +17,6 @@ const RecipeDetails = () => {
     notes: ''
   })
 
-  let { recipeId } = useParams()
   let navigate = useNavigate()
 
   const setRecipe = async () => {
@@ -74,7 +73,9 @@ const RecipeDetails = () => {
   }
 
   useEffect(() => {
-    setRecipe()
+    if (recipeId) {
+      setRecipe()
+    }
   }, [recipeId])
 
   return (

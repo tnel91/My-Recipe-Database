@@ -17,7 +17,7 @@ const RecipeList = ({ user }) => {
     query: ''
   })
 
-  const [selectedRecipe, setSelectedRecipe] = useState('')
+  const [recipeId, setRecipeId] = useState('')
 
   const getRecipes = async () => {
     await axios
@@ -61,7 +61,7 @@ const RecipeList = ({ user }) => {
   }
 
   const showRecipeDetails = (id) => {
-    setSelectedRecipe(id)
+    setRecipeId(id)
   }
 
   const showCreateForm = () => {
@@ -108,7 +108,7 @@ const RecipeList = ({ user }) => {
         {resultList}
       </section>
       <section className="col-8">
-        <RecipeDetails selectedRecipe={selectedRecipe} />
+        {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
       </section>
     </div>
   ) : (
