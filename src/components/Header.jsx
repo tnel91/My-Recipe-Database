@@ -13,7 +13,7 @@ const Header = ({ handleLogout }) => {
       <Link id="push-left" to="/about">
         About
       </Link>
-      <Link to="/recipes">Recipes</Link>
+      <Link to="/recipes/empty">Recipes</Link>
       <Link to="/pantry">Pantry</Link>
       <Link to="/" onClick={logOut}>
         Log Out

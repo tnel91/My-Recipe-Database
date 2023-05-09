@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_URL } from '../globals'
 import AuthError from '../components/AuthError'
 import RecipeSearch from '../components/RecipeSearch'
@@ -8,6 +8,7 @@ import RecipeCard from '../components/RecipeCard'
 import RecipeDetails from './RecipeDetails'
 
 const RecipeList = ({ user }) => {
+  let { urlId } = useParams()
   let navigate = useNavigate()
 
   const [recipes, setRecipes] = useState([])
@@ -62,6 +63,7 @@ const RecipeList = ({ user }) => {
 
   const showRecipeDetails = (id) => {
     setRecipeId(id)
+    navigate(`/recipes/${id}`)
   }
 
   const showCreateForm = () => {
@@ -90,6 +92,12 @@ const RecipeList = ({ user }) => {
   } else {
     resultList = <h3>No Results!</h3>
   }
+
+  useEffect(() => {
+    if (urlId !== 'empty') {
+      setRecipeId(urlId)
+    }
+  }, [])
 
   useEffect(() => {
     getRecipes()

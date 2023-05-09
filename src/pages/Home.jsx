@@ -5,7 +5,7 @@ const Home = ({ user }) => {
 
   const handleNavigate = () => {
     if (user) {
-      navigate('recipes')
+      navigate('/recipes/empty')
     } else {
       navigate('/login')
     }
