@@ -17,7 +17,16 @@ const Login = ({ setUser }) => {
     event.preventDefault()
     const user = await loginUser(formState)
     setUser(user)
-    navigate(`/profile`)
+    navigate(`/recipes`)
+  }
+
+  const handleDemoLogin = async () => {
+    const user = await loginUser({
+      email: 'demo@demo.com',
+      password: 'DemoPassword123'
+    })
+    setUser(user)
+    navigate(`/recipes`)
   }
 
   return (
@@ -52,6 +61,10 @@ const Login = ({ setUser }) => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <div>
+        <h4>Login with Demo Account</h4>
+        <button onClick={handleDemoLogin}>Demo</button>
+      </div>
     </div>
   )
 }

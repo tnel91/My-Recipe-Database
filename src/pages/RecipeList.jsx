@@ -1,25 +1,29 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_URL } from '../globals'
-
+import AuthError from '../components/AuthError'
 import RecipeSearch from '../components/RecipeSearch'
 import RecipeCard from '../components/RecipeCard'
+import RecipeDetails from './RecipeDetails'
 
-const RecipeList = () => {
+const RecipeList = ({ user }) => {
+  let { urlId } = useParams()
   let navigate = useNavigate()
 
   const [recipes, setRecipes] = useState([])
+
   const [searchQuery, setSearchQuery] = useState({
     searchType: 'Name',
     query: ''
   })
 
+  const [recipeId, setRecipeId] = useState('')
+
   const getRecipes = async () => {
     await axios
       .get(`${BASE_URL}/recipes`)
       .then((response) => {
-        console.log(response.data)
         setRecipes(response.data)
       })
       .catch((error) => {
@@ -58,6 +62,7 @@ const RecipeList = () => {
   }
 
   const showRecipeDetails = (id) => {
+    setRecipeId(id)
     navigate(`/recipes/${id}`)
   }
 
@@ -89,19 +94,34 @@ const RecipeList = () => {
   }
 
   useEffect(() => {
+    if (urlId !== 'empty') {
+      setRecipeId(urlId)
+    }
+  }, [])
+
+  useEffect(() => {
     getRecipes()
   }, [])
 
-  return (
-    <div className="recipe-list">
+  return user ? (
+    <div className="row">
       <h2>Recipe Database</h2>
-      <RecipeSearch
-        handleChange={handleChange}
-        query={searchQuery.query}
-        handleSubmit={handleSubmit}
-        showCreateForm={showCreateForm}
-      />
-      {resultList}
+      <section className="col-4">
+        <RecipeSearch
+          handleChange={handleChange}
+          query={searchQuery.query}
+          handleSubmit={handleSubmit}
+          showCreateForm={showCreateForm}
+        />
+        {resultList}
+      </section>
+      <section className="col-8">
+        {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
+      </section>
+    </div>
+  ) : (
+    <div>
+      <AuthError />
     </div>
   )
 }

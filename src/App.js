@@ -1,4 +1,5 @@
-import './App.css'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import { Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { CheckSession } from './services/auth'
@@ -7,7 +8,6 @@ import Home from './pages/Home'
 import About from './pages/About'
 import RecipeList from './pages/RecipeList'
 import RecipeForm from './pages/RecipeForm'
-import RecipeDetails from './pages/RecipeDetails'
 import Pantry from './pages/Pantry'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -40,9 +40,9 @@ const App = () => {
       <Header handleLogout={handleLogout} />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home user={user} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/recipes" element={<RecipeList />} />
+          <Route path="/recipes/:urlId" element={<RecipeList user={user} />} />
           <Route
             path="/recipes/form"
             element={
@@ -59,11 +59,10 @@ const App = () => {
               />
             }
           />
-          <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
-          <Route path="/pantry" element={<Pantry />} />
+          <Route path="/pantry" element={<Pantry user={user} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile user={user} />} />
         </Routes>
       </main>
     </div>

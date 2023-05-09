@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BASE_URL } from '../globals'
+import AuthError from '../components/AuthError'
 
 import IngredientCard from '../components/IngredientCard'
 // import PantrySearch from '../components/PantrySearch'
 
-const Pantry = () => {
+const Pantry = ({ user }) => {
   const [ingredients, setIngredients] = useState([])
 
   const getIngredients = async () => {
@@ -72,7 +73,7 @@ const Pantry = () => {
     getIngredients()
   }, [])
 
-  return (
+  return user ? (
     <div className="pantry">
       <h2>Pantry</h2>
       <form onSubmit={handleSubmit}>
@@ -145,6 +146,10 @@ const Pantry = () => {
           </div>
         ))}
       </section>
+    </div>
+  ) : (
+    <div>
+      <AuthError />
     </div>
   )
 }

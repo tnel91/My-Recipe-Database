@@ -1,28 +1,31 @@
 import { useNavigate } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({ user }) => {
   let navigate = useNavigate()
+
+  const handleNavigate = () => {
+    if (user) {
+      navigate('/recipes/empty')
+    } else {
+      navigate('/login')
+    }
+  }
 
   return (
     <div className="home">
       <div className="home-div">
         <h1>My Recipe Database</h1>
         <h3>Welcome!</h3>
-        <button
-          className="button"
-          onClick={() => {
-            navigate('/recipes')
-          }}
-        >
-          Recipes
+        <button className="button" onClick={handleNavigate}>
+          Login/Enter
         </button>
         <button
           className="button"
           onClick={() => {
-            navigate('/pantry')
+            navigate('/register')
           }}
         >
-          Pantry
+          Register
         </button>
       </div>
     </div>
