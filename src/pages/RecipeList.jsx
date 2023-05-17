@@ -104,9 +104,9 @@ const RecipeList = ({ user }) => {
   }, [])
 
   return user ? (
-    <div className="row">
-      <h2>Recipe Database</h2>
-      <section className="col-4">
+    <div className="container-fluid row">
+      <h2 className="col-12">Recipe Database</h2>
+      <section className="col-3 col-xs-4">
         <RecipeSearch
           handleChange={handleChange}
           query={searchQuery.query}
@@ -115,7 +115,7 @@ const RecipeList = ({ user }) => {
         />
         {resultList}
       </section>
-      <section className="col-8">
+      <section className="">
         {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
       </section>
     </div>

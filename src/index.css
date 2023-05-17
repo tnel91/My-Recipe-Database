@@ -293,7 +293,7 @@ label {
 .ingredient-form {
   margin-left: 2px;
   margin-right: 2px;
-  height: fill;
+  /* height: fill; */
   display: flex;
   flex-direction: column;
   align-items: center;

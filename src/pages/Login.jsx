@@ -26,7 +26,7 @@ const Login = ({ setUser }) => {
       password: 'DemoPassword123'
     })
     setUser(user)
-    navigate(`/recipes`)
+    navigate(`/recipes/empty`)
   }
 
   return (
