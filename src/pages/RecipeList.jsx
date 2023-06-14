@@ -20,11 +20,29 @@ const RecipeList = ({ user }) => {
 
   const [recipeId, setRecipeId] = useState('')
 
+  const initialState = []
+
+  const recipesReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case 'recipes/setRecipes': {
+        return [action.payload]
+      }
+      default: {
+        return state
+      }
+    }
+  }
+
   const getRecipes = async () => {
     await axios
       .get(`${BASE_URL}/recipes`)
       .then((response) => {
         setRecipes(response.data)
+        const recipeSet = {
+          type: 'recipes/setRecipes',
+          payload: response.data
+        }
+        recipesReducer(recipeSet)
       })
       .catch((error) => {
         console.log(error)

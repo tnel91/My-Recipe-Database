@@ -14,6 +14,14 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 
 const App = () => {
+  class User {
+    constructor(id, email, admin) {
+      this.id = id
+      this.email = email
+      this.admin = admin
+    }
+  }
+
   const [user, setUser] = useState(null)
 
   const handleLogout = () => {
