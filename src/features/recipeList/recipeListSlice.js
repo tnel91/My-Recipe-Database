@@ -1,22 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const recipeListSlice = createSlice({
-  name: 'todos',
-  initialState: [],
+  name: 'recipeList',
+  initialState: {
+    list: []
+  },
   reducers: {
-    todoAdded(state, action) {
-      state.push({
-        id: action.payload.id,
-        text: action.payload.text,
-        completed: false
-      })
-    },
-    todoToggled(state, action) {
-      const todo = state.find((todo) => todo.id === action.payload)
-      todo.completed = !todo.completed
+    loadList: (state, action) => {
+      state.value = action.payload
     }
   }
 })
 
-export const { todoAdded, todoToggled } = todosSlice.actions
-export default todosSlice.reducer
+export const { loadList } = recipeListSlice.actions
+export const selectList = (state) => state.recipeList.list
+export default recipeListSlice.reducer

@@ -6,6 +6,7 @@ import AuthError from '../errors/AuthError'
 import RecipeSearch from './RecipeSearch'
 import RecipeCard from './RecipeCard'
 import RecipeDetails from '../recipeDetails/RecipeDetails'
+
 import { Provider } from 'react-redux'
 
 const RecipeList = ({ user }) => {
