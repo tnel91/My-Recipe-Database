@@ -5,15 +5,21 @@ import { BASE_URL } from '../../globals'
 import AuthError from '../errors/AuthError'
 import RecipeSearch from './RecipeSearch'
 import RecipeCard from './RecipeCard'
-import RecipeDetails from '../recipeDetails/RecipeDetails'
+import RecipeDetails from './RecipeDetails'
 
-import { Provider } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadList, selectList } from './recipeSlice'
 
 const RecipeList = ({ user }) => {
+  const dispatch = useDispatch()
+
+  const recipes = useSelector(selectList)
+
   let { urlId } = useParams()
+
   let navigate = useNavigate()
 
-  const [recipes, setRecipes] = useState([])
+  // const [recipes, setRecipes] = useState([])
 
   const [searchQuery, setSearchQuery] = useState({
     searchType: 'Name',
@@ -22,29 +28,30 @@ const RecipeList = ({ user }) => {
 
   const [recipeId, setRecipeId] = useState('')
 
-  const initialState = []
+  // const initialState = []
 
-  const recipesReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'recipes/setRecipes': {
-        return [action.payload]
-      }
-      default: {
-        return state
-      }
-    }
-  }
+  // const recipesReducer = (state = initialState, action) => {
+  //   switch (action.type) {
+  //     case 'recipes/setRecipes': {
+  //       return [action.payload]
+  //     }
+  //     default: {
+  //       return state
+  //     }
+  //   }
+  // }
 
   const getRecipes = async () => {
     await axios
       .get(`${BASE_URL}/recipes`)
       .then((response) => {
-        setRecipes(response.data)
-        const recipeSet = {
-          type: 'recipes/setRecipes',
-          payload: response.data
-        }
-        recipesReducer(recipeSet)
+        dispatch(loadList(response.data))
+        // setRecipes(response.data)
+        // const recipeSet = {
+        //   type: 'recipes/setRecipes',
+        //   payload: response.data
+        // }
+        // recipesReducer(recipeSet)
       })
       .catch((error) => {
         console.log(error)
@@ -61,7 +68,8 @@ const RecipeList = ({ user }) => {
       await axios
         .get(`${BASE_URL}/recipe_search_by_name/${searchQuery.query}`)
         .then((response) => {
-          setRecipes(response.data)
+          // setRecipes(response.data)
+          dispatch(loadList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })
         })
         .catch((error) => {
@@ -72,7 +80,8 @@ const RecipeList = ({ user }) => {
       await axios
         .get(`${BASE_URL}/recipe_search_by_ingr/${searchQuery.query}`)
         .then((response) => {
-          setRecipes(response.data)
+          // setRecipes(response.data)
+          dispatch(loadList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })
         })
         .catch((error) => {

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import recipeListReducer from '../features/RecipeList/RecipeListSlice'
+import recipeReducer from '../features/recipe/recipeSlice'
 
 export default configureStore({
   reducer: {
-    recipeList: recipeListReducer
+    recipe: recipeReducer
   }
 })
