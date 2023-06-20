@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import Client from '../services/api'
-import AuthError from '../components/AuthError'
+import Client from '../../services/api'
+import AuthError from '../errors/AuthError'
 
 const Profile = ({ user }) => {
   const [userProfile, setUserProfile] = useState({

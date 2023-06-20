@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { BASE_URL } from '../globals'
-import AuthError from '../components/AuthError'
-import RecipeSearch from '../components/RecipeSearch'
-import RecipeCard from '../components/RecipeCard'
-import RecipeDetails from './RecipeDetails'
+import { BASE_URL } from '../../globals'
+import AuthError from '../errors/AuthError'
+import RecipeSearch from './RecipeSearch'
+import RecipeCard from './RecipeCard'
+import RecipeDetails from '../recipeDetails/RecipeDetails'
+import { Provider } from 'react-redux'
 
 const RecipeList = ({ user }) => {
   let { urlId } = useParams()
