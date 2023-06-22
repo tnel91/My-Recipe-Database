@@ -2,28 +2,21 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { BASE_URL } from '../../globals'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setForm, selectForm } from './recipeFormSlice'
+
 import axios from 'axios'
 
 const RecipeForm = (props) => {
   let { recipeId } = useParams()
   let navigate = useNavigate()
 
-  const initialState = {
-    name: '',
-    description: '',
-    yield: '',
-    totalTime: '',
-    ingredients: '',
-    instructions: '',
-    image: '',
-    url: '',
-    notes: ''
-  }
+  const dispatch = useDispatch()
 
-  const [formState, setFormState] = useState(initialState)
+  const formState = useSelector(selectForm)
 
   const handleChange = (event) => {
-    setFormState({ ...formState, [event.target.name]: event.target.value })
+    dispatch(setForm({ ...formState, [event.target.name]: event.target.value }))
   }
 
   const handleSubmit = async (event) => {
@@ -69,7 +62,7 @@ const RecipeForm = (props) => {
       url: recipe.url,
       notes: recipe.notes
     }
-    setFormState(recipeState)
+    dispatch(setForm(recipeState))
   }
 
   useEffect(() => {

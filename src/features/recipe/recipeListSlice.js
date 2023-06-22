@@ -6,12 +6,12 @@ export const recipeSlice = createSlice({
     list: []
   },
   reducers: {
-    loadList: (state, action) => {
+    setList: (state, action) => {
       state.list = action.payload
     }
   }
 })
 
-export const { loadList } = recipeSlice.actions
+export const { setList } = recipeSlice.actions
 export const selectList = (state) => state.recipe.list
 export default recipeSlice.reducer

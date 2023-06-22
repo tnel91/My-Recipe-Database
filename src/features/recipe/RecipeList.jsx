@@ -8,7 +8,7 @@ import RecipeCard from './RecipeCard'
 import RecipeDetails from './RecipeDetails'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { loadList, selectList } from './recipeSlice'
+import { setList, selectList } from './recipeListSlice'
 
 const RecipeList = ({ user }) => {
   const dispatch = useDispatch()
@@ -19,8 +19,6 @@ const RecipeList = ({ user }) => {
 
   let navigate = useNavigate()
 
-  // const [recipes, setRecipes] = useState([])
-
   const [searchQuery, setSearchQuery] = useState({
     searchType: 'Name',
     query: ''
@@ -28,30 +26,11 @@ const RecipeList = ({ user }) => {
 
   const [recipeId, setRecipeId] = useState('')
 
-  // const initialState = []
-
-  // const recipesReducer = (state = initialState, action) => {
-  //   switch (action.type) {
-  //     case 'recipes/setRecipes': {
-  //       return [action.payload]
-  //     }
-  //     default: {
-  //       return state
-  //     }
-  //   }
-  // }
-
   const getRecipes = async () => {
     await axios
       .get(`${BASE_URL}/recipes`)
       .then((response) => {
-        dispatch(loadList(response.data))
-        // setRecipes(response.data)
-        // const recipeSet = {
-        //   type: 'recipes/setRecipes',
-        //   payload: response.data
-        // }
-        // recipesReducer(recipeSet)
+        dispatch(setList(response.data))
       })
       .catch((error) => {
         console.log(error)
@@ -68,8 +47,7 @@ const RecipeList = ({ user }) => {
       await axios
         .get(`${BASE_URL}/recipe_search_by_name/${searchQuery.query}`)
         .then((response) => {
-          // setRecipes(response.data)
-          dispatch(loadList(response.data))
+          dispatch(setList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })
         })
         .catch((error) => {
@@ -80,8 +58,7 @@ const RecipeList = ({ user }) => {
       await axios
         .get(`${BASE_URL}/recipe_search_by_ingr/${searchQuery.query}`)
         .then((response) => {
-          // setRecipes(response.data)
-          dispatch(loadList(response.data))
+          dispatch(setList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })
         })
         .catch((error) => {
