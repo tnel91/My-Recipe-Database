@@ -51,7 +51,7 @@ const RecipeList = ({ user }) => {
           setSearchQuery({ ...searchQuery, query: '' })
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error.message)
         })
     }
     if (searchQuery.searchType === 'Ingredients') {
@@ -76,29 +76,6 @@ const RecipeList = ({ user }) => {
     navigate('/recipes/form')
   }
 
-  let resultList
-  if (recipes.length > 0) {
-    resultList = (
-      <section className="recipe-grid">
-        {recipes.map((recipe) => (
-          <div key={recipe._id}>
-            <RecipeCard
-              id={recipe._id}
-              name={recipe.name}
-              yield={recipe.yield}
-              totalTime={recipe.totalTime}
-              image={recipe.image}
-              description={recipe.description}
-              onClick={showRecipeDetails}
-            />
-          </div>
-        ))}
-      </section>
-    )
-  } else {
-    resultList = <h3>No Results!</h3>
-  }
-
   useEffect(() => {
     if (urlId !== 'empty') {
       setRecipeId(urlId)
@@ -111,19 +88,36 @@ const RecipeList = ({ user }) => {
 
   return user ? (
     <div className="container-fluid row">
-      <h2 className="col-12">Recipe Database</h2>
-      <section className="col-3 col-xs-4">
+      <div className="col-6">
         <RecipeSearch
           handleChange={handleChange}
           query={searchQuery.query}
           handleSubmit={handleSubmit}
           showCreateForm={showCreateForm}
         />
-        {resultList}
-      </section>
-      <section className="">
+        {recipes.length > 0 ? (
+          <section className="recipe-grid row">
+            {recipes.map((recipe) => (
+              <div key={recipe._id} className="col-6">
+                <RecipeCard
+                  id={recipe._id}
+                  name={recipe.name}
+                  yield={recipe.yield}
+                  totalTime={recipe.totalTime}
+                  image={recipe.image}
+                  description={recipe.description}
+                  onClick={showRecipeDetails}
+                />
+              </div>
+            ))}
+          </section>
+        ) : (
+          <h3>No Results!</h3>
+        )}
+      </div>
+      <div className="col-6">
         {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
-      </section>
+      </div>
     </div>
   ) : (
     <div>

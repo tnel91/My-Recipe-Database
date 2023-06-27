@@ -1,18 +1,18 @@
 const RecipeCard = (props) => {
-  const showDescription = () => {
-    document.getElementById(props.id).style.display = ''
-  }
+  // const showDescription = () => {
+  //   document.getElementById(props.id).style.display = ''
+  // }
 
-  const hideDescription = () => {
-    document.getElementById(props.id).style.display = 'none'
-  }
+  // const hideDescription = () => {
+  //   document.getElementById(props.id).style.display = 'none'
+  // }
 
   return (
     <div
       className="recipe card pointer"
       onClick={() => props.onClick(props.id)}
-      onMouseEnter={showDescription}
-      onMouseLeave={hideDescription}
+      // onMouseEnter={showDescription}
+      // onMouseLeave={hideDescription}
     >
       <div className="img-wrapper">
         <img src={props.image} alt="Recipe Image" />

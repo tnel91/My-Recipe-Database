@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import recipeReducer from '../features/recipe/recipeListSlice'
-import formReducer from '../features/recipe/recipeFormSlice'
+import recipeReducer from '../features/recipes/recipeListSlice'
+import formReducer from '../features/recipes/recipeFormSlice'
 
 export default configureStore({
   reducer: {

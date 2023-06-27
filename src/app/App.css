@@ -220,9 +220,9 @@ label {
 /* /////////////////// */
 
 .recipe-grid {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, 400px);
-  grid-gap: 1em;
+  grid-gap: 1em; */
 }
 
 .ingredient-grid {
