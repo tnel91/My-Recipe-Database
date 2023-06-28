@@ -9,25 +9,23 @@ const RecipeCard = (props) => {
 
   return (
     <div
-      className="recipe card pointer"
+      className="recipe card pointer row"
       onClick={() => props.onClick(props.id)}
       // onMouseEnter={showDescription}
       // onMouseLeave={hideDescription}
     >
-      <div className="img-wrapper">
+      <div className="img-wrapper col-12">
         <img src={props.image} alt="Recipe Image" />
       </div>
-      <div className="card-h3-wrapper">
-        <h3>{props.name.toUpperCase()}</h3>
+      <div className="col-12">
+        <h5>{props.name.toUpperCase()}</h5>
       </div>
-      <div className="recipe-card-info">
-        <p>{props.totalTime}</p>
-        <p>{props.yield}</p>
-      </div>
-      <div className="description" id={props.id} style={{ display: 'none' }}>
+      <div className="col-12">Total Time: {props.totalTime}</div>
+      <div className="col-12">Yield: {props.yield}</div>
+      {/* <div className="description" id={props.id} style={{ display: 'none' }}>
         <h3>Description:</h3>
         <p>{props.description}</p>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -219,35 +219,14 @@ label {
 
 /* /////////////////// */
 
-.recipe-grid {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, 400px);
-  grid-gap: 1em; */
-}
-
 .ingredient-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
   grid-gap: 1em;
 }
 
-.recipe-card-info {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.card {
-  border: 2px inset rgb(0, 115, 123);
-  background-color: rgb(215, 242, 251);
-  text-align: center;
-}
-
 .card.recipe {
   height: 275px;
-}
-
-.card-h3-wrapper {
-  height: 2em;
 }
 
 .description {

@@ -88,7 +88,7 @@ const RecipeList = ({ user }) => {
 
   return user ? (
     <div className="container-fluid row">
-      <div className="col-6">
+      <div className="col-3">
         <RecipeSearch
           handleChange={handleChange}
           query={searchQuery.query}
@@ -98,7 +98,7 @@ const RecipeList = ({ user }) => {
         {recipes.length > 0 ? (
           <section className="recipe-grid row">
             {recipes.map((recipe) => (
-              <div key={recipe._id} className="col-6">
+              <div key={recipe._id} className="col-12 container">
                 <RecipeCard
                   id={recipe._id}
                   name={recipe.name}
@@ -115,7 +115,7 @@ const RecipeList = ({ user }) => {
           <h3>No Results!</h3>
         )}
       </div>
-      <div className="col-6">
+      <div className="col-9">
         {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
       </div>
     </div>
