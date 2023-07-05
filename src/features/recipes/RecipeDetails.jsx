@@ -3,19 +3,13 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../../globals'
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setDetails, selectDetails } from './recipeDetailsSlice'
+
 const RecipeDetails = ({ recipeId }) => {
-  const [selectedRecipe, setSelectedRecipe] = useState(null)
-  const [recipeDetails, setRecipeDetails] = useState({
-    name: '',
-    description: '',
-    yield: '',
-    totalTime: '',
-    ingredients: [],
-    instructions: [],
-    image: '',
-    url: '',
-    notes: ''
-  })
+  const dispatch = useDispatch()
+
+  const recipeDetails = useSelector(selectDetails)
 
   let navigate = useNavigate()
 
@@ -28,8 +22,7 @@ const RecipeDetails = ({ recipeId }) => {
       .catch((error) => {
         console.log(error)
       })
-    setSelectedRecipe(response)
-    setRecipeDetails({
+    let RecipeDetails = {
       name: response.name.toUpperCase(),
       description: response.description,
       yield: response.yield,
@@ -39,7 +32,8 @@ const RecipeDetails = ({ recipeId }) => {
       image: response.image,
       url: response.url,
       notes: response.notes
-    })
+    }
+    dispatch(setDetails(RecipeDetails))
   }
 
   const deleteRecipe = async () => {

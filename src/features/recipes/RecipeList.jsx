@@ -87,6 +87,7 @@ const RecipeList = ({ user }) => {
   }, [])
 
   return user ? (
+    // Renders if user is logged in
     <div className="container-fluid row">
       <div className="col-3">
         <RecipeSearch
@@ -96,6 +97,7 @@ const RecipeList = ({ user }) => {
           showCreateForm={showCreateForm}
         />
         {recipes.length > 0 ? (
+          // Renders if recipes are found
           <section className="recipe-grid row">
             {recipes.map((recipe) => (
               <div key={recipe._id} className="col-12 container">
@@ -112,14 +114,19 @@ const RecipeList = ({ user }) => {
             ))}
           </section>
         ) : (
+          // Renders if no recipes are found
           <h3>No Results!</h3>
         )}
       </div>
       <div className="col-9">
-        {recipeId ? <RecipeDetails recipeId={recipeId} /> : null}
+        {recipeId ? (
+          // Renders if recipeId is set
+          <RecipeDetails recipeId={recipeId} />
+        ) : null}
       </div>
     </div>
   ) : (
+    // Renders if user is not logged in
     <div>
       <AuthError />
     </div>
