@@ -1,21 +1,20 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
+import Client from '../../services/api'
 import { BASE_URL } from '../../globals'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setDetails, selectDetails } from './recipeDetailsSlice'
+import { setForm, selectForm } from './recipeFormSlice'
 
 const RecipeDetails = ({ recipeId }) => {
   const dispatch = useDispatch()
 
-  const recipeDetails = useSelector(selectDetails)
+  const recipeDetails = useSelector(selectForm)
 
   let navigate = useNavigate()
 
   const setRecipe = async () => {
-    const response = await axios
-      .get(`${BASE_URL}/recipes/${recipeId}`)
+    const response = await Client.get(`${BASE_URL}/recipes/${recipeId}`)
       .then((res) => {
         return res.data
       })
@@ -27,20 +26,19 @@ const RecipeDetails = ({ recipeId }) => {
       description: response.description,
       yield: response.yield,
       totalTime: response.totalTime,
-      ingredients: response.ingredients.split('\n'),
-      instructions: response.instructions.split('\n'),
+      ingredients: response.ingredients,
+      instructions: response.instructions,
       image: response.image,
       url: response.url,
       notes: response.notes
     }
-    dispatch(setDetails(RecipeDetails))
+    dispatch(setForm(RecipeDetails))
   }
 
   const deleteRecipe = async () => {
     let confirm = window.confirm('Delete recipe forever?')
     if (confirm === true) {
-      await axios
-        .delete(`${BASE_URL}/recipes/${recipeId}`)
+      await Client.delete(`${BASE_URL}/recipes/${recipeId}`)
         .then(() => {
           navigate(`/recipes`)
         })
@@ -99,13 +97,13 @@ const RecipeDetails = ({ recipeId }) => {
         />
         <ul className="recipe-ingredients">
           <h3>Ingredients</h3>
-          {recipeDetails.ingredients.map((ingredient, index) => (
+          {recipeDetails.ingredients.split('\n').map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
         <ol className="recipe-instructions">
           <h3>Instructions</h3>
-          {recipeDetails.instructions.map((step, index) => (
+          {recipeDetails.instructions.split('\n').map((step, index) => (
             <li key={index}>{step}</li>
           ))}
         </ol>

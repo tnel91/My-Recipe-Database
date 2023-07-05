@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Client from '../../services/api'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_URL } from '../../globals'
@@ -27,8 +27,7 @@ const RecipeList = ({ user }) => {
   const [recipeId, setRecipeId] = useState('')
 
   const getRecipes = async () => {
-    await axios
-      .get(`${BASE_URL}/recipes`)
+    await Client.get(`${BASE_URL}/recipes`)
       .then((response) => {
         dispatch(setList(response.data))
       })
@@ -44,8 +43,7 @@ const RecipeList = ({ user }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (searchQuery.searchType === 'Name') {
-      await axios
-        .get(`${BASE_URL}/recipe_search_by_name/${searchQuery.query}`)
+      await Client.get(`${BASE_URL}/recipe_search_by_name/${searchQuery.query}`)
         .then((response) => {
           dispatch(setList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })
@@ -55,8 +53,7 @@ const RecipeList = ({ user }) => {
         })
     }
     if (searchQuery.searchType === 'Ingredients') {
-      await axios
-        .get(`${BASE_URL}/recipe_search_by_ingr/${searchQuery.query}`)
+      await Client.get(`${BASE_URL}/recipe_search_by_ingr/${searchQuery.query}`)
         .then((response) => {
           dispatch(setList(response.data))
           setSearchQuery({ ...searchQuery, query: '' })

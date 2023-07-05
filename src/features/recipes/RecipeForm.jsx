@@ -1,11 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BASE_URL } from '../../globals'
+import Client from '../../services/api'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setForm, selectForm } from './recipeFormSlice'
-
-import axios from 'axios'
 
 const RecipeForm = (props) => {
   let { recipeId } = useParams()
@@ -22,8 +21,7 @@ const RecipeForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (props.updateForm) {
-      await axios
-        .put(`${BASE_URL}/recipes/${recipeId}`, formState)
+      await Client.put(`${BASE_URL}/recipes/${recipeId}`, formState)
         .then(() => {
           navigate(`/recipes/${recipeId}`)
         })
@@ -31,8 +29,7 @@ const RecipeForm = (props) => {
           alert(error.response.data)
         })
     } else {
-      await axios
-        .post(`${BASE_URL}/recipes`, formState)
+      await Client.post(`${BASE_URL}/recipes`, formState)
         .then((response) => {
           navigate(`/recipes/${response.data._id}`)
         })
@@ -43,8 +40,7 @@ const RecipeForm = (props) => {
   }
 
   const updateTemplate = async () => {
-    const recipe = await axios
-      .get(`${BASE_URL}/recipes/${recipeId}`)
+    const recipe = await Client.get(`${BASE_URL}/recipes/${recipeId}`)
       .then((response) => {
         return response.data
       })
