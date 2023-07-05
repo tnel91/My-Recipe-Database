@@ -4,6 +4,7 @@ export const formSlice = createSlice({
   name: 'recipeForm',
   initialState: {
     recipe: {
+      id: '',
       name: '',
       description: '',
       yield: '',

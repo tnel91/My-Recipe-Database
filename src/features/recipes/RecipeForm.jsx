@@ -48,6 +48,7 @@ const RecipeForm = (props) => {
         console.log(error)
       })
     const recipeState = {
+      id: recipe._id,
       name: recipe.name,
       description: recipe.description,
       yield: recipe.yield,

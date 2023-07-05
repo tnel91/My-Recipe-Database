@@ -22,6 +22,7 @@ const RecipeDetails = ({ recipeId }) => {
         console.log(error)
       })
     let RecipeDetails = {
+      id: response._id,
       name: response.name.toUpperCase(),
       description: response.description,
       yield: response.yield,
