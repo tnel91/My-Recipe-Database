@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { BASE_URL } from '../globals'
-import AuthError from '../components/AuthError'
+import { BASE_URL } from '../../globals'
+import AuthError from '../errors/AuthError'
 
-import IngredientCard from '../components/IngredientCard'
+import IngredientCard from './IngredientCard'
 // import PantrySearch from '../components/PantrySearch'
 
 const Pantry = ({ user }) => {

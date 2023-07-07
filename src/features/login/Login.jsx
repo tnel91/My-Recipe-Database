@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { loginUser } from '../services/auth'
+import { loginUser } from '../../services/auth'
 import { useNavigate } from 'react-router-dom'
 
 const Login = ({ setUser }) => {
@@ -26,7 +26,7 @@ const Login = ({ setUser }) => {
       password: 'DemoPassword123'
     })
     setUser(user)
-    navigate(`/recipes`)
+    navigate(`/recipes/empty`)
   }
 
   return (

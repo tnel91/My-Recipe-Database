@@ -1,19 +1,27 @@
-import './index.css'
+import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { CheckSession } from './services/auth'
-import Header from './components/Header'
-import Home from './pages/Home'
-import About from './pages/About'
-import RecipeList from './pages/RecipeList'
-import RecipeForm from './pages/RecipeForm'
-import Pantry from './pages/Pantry'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Profile from './pages/Profile'
+import { CheckSession } from '../services/auth'
+import Header from '../features/header/Header'
+import Landing from '../features/landing/Landing'
+import About from '../features/about/About'
+import RecipeList from '../features/recipes/RecipeList'
+import RecipeForm from '../features/recipes/RecipeForm'
+import Pantry from '../features/pantry/Pantry'
+import Login from '../features/login/Login'
+import Register from '../features/register/Register'
+import Profile from '../features/profile/Profile'
 
 const App = () => {
+  class User {
+    constructor(id, email, admin) {
+      this.id = id
+      this.email = email
+      this.admin = admin
+    }
+  }
+
   const [user, setUser] = useState(null)
 
   const handleLogout = () => {
@@ -40,7 +48,7 @@ const App = () => {
       <Header handleLogout={handleLogout} />
       <main>
         <Routes>
-          <Route path="/" element={<Home user={user} />} />
+          <Route path="/" element={<Landing user={user} />} />
           <Route path="/about" element={<About />} />
           <Route path="/recipes/:urlId" element={<RecipeList user={user} />} />
           <Route

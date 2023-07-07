@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { BASE_URL } from '../globals'
+import { BASE_URL } from '../../globals'
 
 const IngredientCard = (props) => {
   const [ingredient, setIngredient] = useState(props.ingredient)

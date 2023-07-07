@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const Home = ({ user }) => {
+const Landing = ({ user }) => {
   let navigate = useNavigate()
 
   const handleNavigate = () => {
@@ -32,4 +32,4 @@ const Home = ({ user }) => {
   )
 }
 
-export default Home
+export default Landing
