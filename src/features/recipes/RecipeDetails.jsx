@@ -1,86 +1,18 @@
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import Client from '../../services/api'
-import { BASE_URL } from '../../globals'
-
 import { useSelector, useDispatch } from 'react-redux'
-import { setForm, selectForm } from './recipeFormSlice'
+import { selectForm, setEdit } from './recipeFormSlice'
 
-const RecipeDetails = ({ recipeId }) => {
+const RecipeDetails = () => {
   const dispatch = useDispatch()
 
   const recipeDetails = useSelector(selectForm)
-
-  let navigate = useNavigate()
-
-  const setRecipe = async () => {
-    const response = await Client.get(`${BASE_URL}/recipes/${recipeId}`)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    let RecipeDetails = {
-      id: response._id,
-      name: response.name.toUpperCase(),
-      description: response.description,
-      yield: response.yield,
-      totalTime: response.totalTime,
-      ingredients: response.ingredients,
-      instructions: response.instructions,
-      image: response.image,
-      url: response.url,
-      notes: response.notes
-    }
-    dispatch(setForm(RecipeDetails))
-  }
-
-  const deleteRecipe = async () => {
-    let confirm = window.confirm('Delete recipe forever?')
-    if (confirm === true) {
-      await Client.delete(`${BASE_URL}/recipes/${recipeId}`)
-        .then(() => {
-          navigate(`/recipes`)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
-  }
-
-  const showUpdateForm = (id) => {
-    navigate(`/recipes/form/${id}`)
-  }
-
-  let notes
-  if (recipeDetails.notes != '') {
-    notes = (
-      <div className="recipe-notes">
-        <h3>Notes</h3>
-        <p>{recipeDetails.notes}</p>
-      </div>
-    )
-  } else {
-    notes = undefined
-  }
-
-  useEffect(() => {
-    if (recipeId) {
-      setRecipe()
-    }
-  }, [recipeId])
 
   return (
     <div className="recipe-details">
       <div>
         <h2>{recipeDetails.name}</h2>
         <div className="recipe-nav">
-          <button className="button" onClick={() => showUpdateForm(recipeId)}>
-            Edit Recipe
-          </button>
-          <button className="button" onClick={() => deleteRecipe()}>
-            Delete Recipe
+          <button className="button" onClick={() => dispatch(setEdit(true))}>
+            Edit Mode
           </button>
           <button
             className="button"
@@ -108,7 +40,12 @@ const RecipeDetails = ({ recipeId }) => {
             <li key={index}>{step}</li>
           ))}
         </ol>
-        {notes}
+        {recipeDetails.notes && (
+          <div className="recipe-notes">
+            <h3>Notes</h3>
+            <p>{recipeDetails.notes}</p>
+          </div>
+        )}
       </div>
     </div>
   )

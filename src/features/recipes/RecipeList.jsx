@@ -5,26 +5,24 @@ import { BASE_URL } from '../../globals'
 import AuthError from '../errors/AuthError'
 import RecipeSearch from './RecipeSearch'
 import RecipeCard from './RecipeCard'
-import RecipeDetails from './RecipeDetails'
-
+import RecipeFocus from './RecipeFocus'
 import { useSelector, useDispatch } from 'react-redux'
 import { setList, selectList } from './recipeListSlice'
+import { setId, selectForm, setForm, setEdit, setNew } from './recipeFormSlice'
 
 const RecipeList = ({ user }) => {
   const dispatch = useDispatch()
+  let navigate = useNavigate()
 
   const recipes = useSelector(selectList)
+  const formState = useSelector(selectForm)
 
   let { urlId } = useParams()
-
-  let navigate = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState({
     searchType: 'Name',
     query: ''
   })
-
-  const [recipeId, setRecipeId] = useState('')
 
   const getRecipes = async () => {
     await Client.get(`${BASE_URL}/recipes`)
@@ -39,6 +37,8 @@ const RecipeList = ({ user }) => {
   const handleChange = (event) => {
     setSearchQuery({ ...searchQuery, [event.target.id]: event.target.value })
   }
+
+  // Handles Search Form Submission
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -64,18 +64,41 @@ const RecipeList = ({ user }) => {
     }
   }
 
+  const createNewRecipe = () => {
+    dispatch(
+      setForm({
+        id: 'new',
+        name: '',
+        description: '',
+        yield: '',
+        totalTime: '',
+        ingredients: '',
+        instructions: '',
+        image: '',
+        url: '',
+        notes: ''
+      })
+    )
+    dispatch(setEdit(true))
+    dispatch(setNew(true))
+    navigate(`/recipes/new`)
+  }
+
   const showRecipeDetails = (id) => {
-    setRecipeId(id)
+    console.log('showRecipeDetails')
+    dispatch(setId(id))
+    dispatch(setEdit(false))
+    dispatch(setNew(false))
     navigate(`/recipes/${id}`)
   }
 
-  const showCreateForm = () => {
-    navigate('/recipes/form')
-  }
-
   useEffect(() => {
-    if (urlId !== 'empty') {
-      setRecipeId(urlId)
+    if (urlId === 'empty') {
+      return
+    } else if (urlId === 'new') {
+      createNewRecipe()
+    } else {
+      showRecipeDetails(urlId)
     }
   }, [])
 
@@ -91,7 +114,7 @@ const RecipeList = ({ user }) => {
           handleChange={handleChange}
           query={searchQuery.query}
           handleSubmit={handleSubmit}
-          showCreateForm={showCreateForm}
+          createNewRecipe={createNewRecipe}
         />
         {recipes.length > 0 ? (
           // Renders if recipes are found
@@ -116,10 +139,13 @@ const RecipeList = ({ user }) => {
         )}
       </div>
       <div className="col-9">
-        {recipeId ? (
+        {formState.id ? (
           // Renders if recipeId is set
-          <RecipeDetails recipeId={recipeId} />
-        ) : null}
+          <RecipeFocus />
+        ) : (
+          // Renders if recipeId is not set
+          <h3>Click on a recipe to view details</h3>
+        )}
       </div>
     </div>
   ) : (

@@ -1,37 +1,45 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../globals'
 import Client from '../../services/api'
-
 import { useSelector, useDispatch } from 'react-redux'
-import { setForm, selectForm } from './recipeFormSlice'
+import {
+  setForm,
+  selectForm,
+  setEdit,
+  setNew,
+  selectNew,
+  setId
+} from './recipeFormSlice'
 
-const RecipeForm = (props) => {
-  let { recipeId } = useParams()
+const RecipeForm = ({ deleteRecipe }) => {
   let navigate = useNavigate()
-
   const dispatch = useDispatch()
 
   const formState = useSelector(selectForm)
+  const isNewRecipe = useSelector(selectNew)
 
   const handleChange = (event) => {
     dispatch(setForm({ ...formState, [event.target.name]: event.target.value }))
   }
 
-  const handleSubmit = async (event) => {
+  const saveChanges = async (event) => {
     event.preventDefault()
-    if (props.updateForm) {
-      await Client.put(`${BASE_URL}/recipes/${recipeId}`, formState)
-        .then(() => {
-          navigate(`/recipes/${recipeId}`)
+    if (isNewRecipe) {
+      await Client.post(`${BASE_URL}/recipes`, formState)
+        .then((response) => {
+          dispatch(setEdit(false))
+          dispatch(setNew(false))
+          dispatch(setId(response.data.recipe._id))
+          navigate(`/recipes/${response.data.recipe._id}`)
         })
         .catch((error) => {
           alert(error.response.data)
         })
     } else {
-      await Client.post(`${BASE_URL}/recipes`, formState)
-        .then((response) => {
-          navigate(`/recipes/${response.data._id}`)
+      await Client.put(`${BASE_URL}/recipes/${formState.id}`, formState)
+        .then(() => {
+          navigate(`/recipes/${formState.id}`)
+          dispatch(setEdit(false))
         })
         .catch((error) => {
           alert(error.response.data)
@@ -39,47 +47,17 @@ const RecipeForm = (props) => {
     }
   }
 
-  const updateTemplate = async () => {
-    const recipe = await Client.get(`${BASE_URL}/recipes/${recipeId}`)
-      .then((response) => {
-        return response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    const recipeState = {
-      id: recipe._id,
-      name: recipe.name,
-      description: recipe.description,
-      yield: recipe.yield,
-      totalTime: recipe.totalTime,
-      ingredients: recipe.ingredients,
-      instructions: recipe.instructions,
-      image: recipe.image,
-      url: recipe.url,
-      notes: recipe.notes
-    }
-    dispatch(setForm(recipeState))
-  }
-
-  useEffect(() => {
-    if (props.updateForm) {
-      updateTemplate()
-    }
-  }, [recipeId])
-
   return (
     <div className="recipe-form">
-      {/* <h2 id="recipe-form-heading">{props.heading}</h2> */}
-      <button form="recipe-form-grid" id="recipeSubmit" type="submit">
-        {props.submit}
-      </button>
+      <button onClick={() => dispatch(setEdit(false))}>View Mode</button>
+      <button onClick={saveChanges}>Save Changes</button>
+      <button onClick={deleteRecipe}>Delete Recipe</button>
       <p id="form-note">
         <span className="bold">Note:</span> When filling out Ingredients and
         Instructions in this form, please ensure each ingredient/step is
         separated by a line break to ensure proper formatting.
       </p>
-      <form id="recipe-form-grid" onSubmit={handleSubmit}>
+      <form id="recipe-form-grid">
         <label htmlFor="name">Recipe Name:</label>
         <input
           id="name"
@@ -97,7 +75,12 @@ const RecipeForm = (props) => {
           value={formState.description}
         ></textarea>
         <label htmlFor="yield">Yield:</label>
-        <input id="yield" onChange={handleChange} value={formState.yield} />
+        <input
+          id="yield"
+          name="yield"
+          onChange={handleChange}
+          value={formState.yield}
+        />
         <label htmlFor="totalTime">Total Time:</label>
         <input
           id="totalTime"
@@ -145,7 +128,6 @@ const RecipeForm = (props) => {
           value={formState.notes}
         />
       </form>
-      <div className="Response"></div>
     </div>
   )
 }

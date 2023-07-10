@@ -14,15 +14,28 @@ export const formSlice = createSlice({
       image: '',
       url: '',
       notes: ''
-    }
+    },
+    edit: false,
+    new: false
   },
   reducers: {
     setForm: (state, action) => {
       state.recipe = action.payload
+    },
+    setId: (state, action) => {
+      state.recipe.id = action.payload
+    },
+    setEdit: (state, action) => {
+      state.edit = action.payload
+    },
+    setNew: (state, action) => {
+      state.new = action.payload
     }
   }
 })
 
-export const { setForm } = formSlice.actions
+export const { setForm, setId, setEdit, setNew } = formSlice.actions
 export const selectForm = (state) => state.recipeForm.recipe
+export const selectEdit = (state) => state.recipeForm.edit
+export const selectNew = (state) => state.recipeForm.new
 export default formSlice.reducer
