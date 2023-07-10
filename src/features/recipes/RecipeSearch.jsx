@@ -1,24 +1,21 @@
-const RecipeSearch = (props) => {
+const RecipeSearch = ({
+  handleChange,
+  query,
+  handleSubmit,
+  createNewRecipe
+}) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <fieldset id="searchForm">
         <legend>Create/Search Recipes</legend>
         <div>
-          <button
-            type="button"
-            className="button"
-            onClick={props.showCreateForm}
-          >
+          <button type="button" className="button" onClick={createNewRecipe}>
             Create New Recipe
           </button>
         </div>
         <div>
           <label htmlFor="searchType">Search by:</label>
-          <select
-            className="pointer"
-            id="searchType"
-            onChange={props.handleChange}
-          >
+          <select className="pointer" id="searchType" onChange={handleChange}>
             <option value="Name">Name</option>
             <option value="Ingredients">Ingredients</option>
           </select>
@@ -28,8 +25,8 @@ const RecipeSearch = (props) => {
           <input
             id="query"
             type="text"
-            onChange={props.handleChange}
-            value={props.query}
+            onChange={handleChange}
+            value={query}
             placeholder="Search Recipes"
             required
           />
