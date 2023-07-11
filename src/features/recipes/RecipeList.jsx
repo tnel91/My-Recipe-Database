@@ -8,7 +8,13 @@ import RecipeCard from './RecipeCard'
 import RecipeFocus from './RecipeFocus'
 import { useSelector, useDispatch } from 'react-redux'
 import { setList, selectList } from './recipeListSlice'
-import { setId, selectForm, setForm, setEdit, setNew } from './recipeFormSlice'
+import {
+  setId,
+  selectForm,
+  setEdit,
+  setNew,
+  clearForm
+} from './recipeFormSlice'
 
 const RecipeList = ({ user }) => {
   const dispatch = useDispatch()
@@ -65,27 +71,14 @@ const RecipeList = ({ user }) => {
   }
 
   const createNewRecipe = () => {
-    dispatch(
-      setForm({
-        id: 'new',
-        name: '',
-        description: '',
-        yield: '',
-        totalTime: '',
-        ingredients: '',
-        instructions: '',
-        image: '',
-        url: '',
-        notes: ''
-      })
-    )
+    dispatch(clearForm())
+    dispatch(setId('new'))
     dispatch(setEdit(true))
     dispatch(setNew(true))
     navigate(`/recipes/new`)
   }
 
   const showRecipeDetails = (id) => {
-    console.log('showRecipeDetails')
     dispatch(setId(id))
     dispatch(setEdit(false))
     dispatch(setNew(false))

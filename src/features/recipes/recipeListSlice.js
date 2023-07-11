@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const recipeSlice = createSlice({
-  name: 'recipe',
+  name: 'recipeList',
   initialState: {
     list: []
   },
@@ -13,5 +13,5 @@ export const recipeSlice = createSlice({
 })
 
 export const { setList } = recipeSlice.actions
-export const selectList = (state) => state.recipe.list
+export const selectList = (state) => state.recipeList.list
 export default recipeSlice.reducer
