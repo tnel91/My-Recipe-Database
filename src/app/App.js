@@ -12,27 +12,22 @@ import Pantry from '../features/pantry/Pantry'
 import Login from '../features/login/Login'
 import Register from '../features/register/Register'
 import Profile from '../features/profile/Profile'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser, clearUser, selectUser } from '../services/userSlice'
 
 const App = () => {
-  class User {
-    constructor(id, email, admin) {
-      this.id = id
-      this.email = email
-      this.admin = admin
-    }
-  }
-
-  const [user, setUser] = useState(null)
+  const dispatch = useDispatch()
+  const user = useSelector(selectUser)
 
   const handleLogout = () => {
-    setUser(null)
+    dispatch(clearUser())
     localStorage.clear()
   }
 
   const checkToken = async () => {
     const user = await CheckSession()
     if (user) {
-      setUser(user)
+      dispatch(setUser(user))
     }
   }
 

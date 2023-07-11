@@ -5,7 +5,13 @@ import { BASE_URL } from '../../globals'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { setForm, selectForm, selectEdit, setEdit } from './recipeFormSlice'
+import {
+  setForm,
+  selectForm,
+  selectEdit,
+  setEdit,
+  clearForm
+} from './recipeFormSlice'
 
 const RecipeFocus = () => {
   const dispatch = useDispatch()
@@ -15,7 +21,6 @@ const RecipeFocus = () => {
   let navigate = useNavigate()
 
   const setRecipe = async () => {
-    console.log('setRecipe')
     const response = await Client.get(`${BASE_URL}/recipes/${formState.id}`)
       .then((res) => {
         return res.data
@@ -43,20 +48,7 @@ const RecipeFocus = () => {
     if (confirm === true) {
       await Client.delete(`${BASE_URL}/recipes/${formState.id}`)
         .then(() => {
-          dispatch(
-            setForm({
-              id: '',
-              name: '',
-              description: '',
-              yield: '',
-              totalTime: '',
-              ingredients: '',
-              instructions: '',
-              image: '',
-              url: '',
-              notes: ''
-            })
-          )
+          dispatch(clearForm())
           dispatch(setEdit(false))
           navigate(`/recipes/empty`)
         })

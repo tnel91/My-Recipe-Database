@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { loginUser } from '../../services/auth'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 const Login = ({ setUser }) => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formState, setFormState] = useState({
     email: '',
@@ -16,7 +18,7 @@ const Login = ({ setUser }) => {
   const handleLogin = async (event) => {
     event.preventDefault()
     const user = await loginUser(formState)
-    setUser(user)
+    dispatch(setUser(user))
     navigate(`/recipes`)
   }
 
@@ -25,7 +27,7 @@ const Login = ({ setUser }) => {
       email: 'demo@demo.com',
       password: 'DemoPassword123'
     })
-    setUser(user)
+    dispatch(setUser(user))
     navigate(`/recipes/empty`)
   }
 
