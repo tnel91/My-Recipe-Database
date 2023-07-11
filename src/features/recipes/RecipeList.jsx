@@ -33,6 +33,7 @@ const RecipeList = ({ user }) => {
   const getRecipes = async () => {
     await Client.get(`${BASE_URL}/recipes`)
       .then((response) => {
+        console.log(response.data)
         dispatch(setList(response.data))
       })
       .catch((error) => {
