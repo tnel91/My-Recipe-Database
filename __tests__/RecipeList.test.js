@@ -28,17 +28,15 @@ jest.mock('../src/services/api', () => ({
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
-import RecipeList from '../src/features/recipes/RecipeList'
+import store from '../src/app/store'
+import { MemoryRouter } from 'react-router-dom'
 
-// Create a mock Redux store
-const mockStore = configureStore([])
-const store = mockStore({})
+import RecipeList from '../src/features/recipes/RecipeList'
 
 const testUser = { id: 1, name: 'Test User', email: 'test@email.com' }
 
 describe('Smoke Tests', () => {
-  test('smoke test', () => {
+  test('expect true to be true', () => {
     expect(true).toBe(true)
   })
 })
@@ -46,8 +44,22 @@ describe('RecipeList', () => {
   test('renders RecipeList component without errors', () => {
     render(
       <Provider store={store}>
-        <RecipeList user={testUser} />
+        <MemoryRouter>
+          <RecipeList user={testUser} />
+        </MemoryRouter>
       </Provider>
     )
   })
 })
+// test('renders RecipeList component with recipes', () => {
+//   render(
+//     <Provider store={store}>
+//       <BrowserRouter>
+//         <RecipeList user={testUser} />
+//       </BrowserRouter>
+//     </Provider>
+//   )
+//   const recipes = screen.getAllByTestId('recipe')
+//   expect(recipes).toHaveLength(3)
+// })
+// })
