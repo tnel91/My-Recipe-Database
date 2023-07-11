@@ -1,5 +1,5 @@
-import Client from '../../services/api'
 import { useState, useEffect } from 'react'
+import Client from '../../services/api'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_URL } from '../../globals'
 import AuthError from '../errors/AuthError'
@@ -33,6 +33,7 @@ const RecipeList = ({ user }) => {
   const getRecipes = async () => {
     await Client.get(`${BASE_URL}/recipes`)
       .then((response) => {
+        console.log(response.data)
         dispatch(setList(response.data))
       })
       .catch((error) => {
